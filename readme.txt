@@ -3,7 +3,7 @@ Contributors: Elise Ferguson
 Tags: movie, imdb, films
 Requires at least: 4.0.1
 Tested up to: 4.4.2
-Stable tag: 0.9
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,14 @@ Right now this is not possible but we will be adding this functionality in futur
 
 == Changelog ==
 
+= 1.0.1 = 
+
+* Added Updater file
+
+= 1.0.0 =
+
+* Initial deployment onto GitHub
+
 = 0.9 =
 
 * Initial launch of the plugin
@@ -87,6 +95,14 @@ Right now this is not possible but we will be adding this functionality in futur
 * Option to choose if plot is displayed
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+
+Updater file added.
+
+= 1.0.0 =
+
+Deployed on Github
 
 = 0.9 =
 This is the first version of the plugin.  No updates available yet.
