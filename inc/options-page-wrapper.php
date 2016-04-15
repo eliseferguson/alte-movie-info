@@ -43,7 +43,9 @@
 						</p>
 						<p>Movie Poster: 
 						<?php echo $alte_movie_movie->{'Poster'}; ?>
-
+						<!-- <iframe frameborder="0" scrolling="no" width="100%" height="100%" src="<?php echo $alte_movie_movie->{'Poster'};?> >" name="imgbox" id="imgbox">
+						   <p>iframes are not supported by your browser.</p>
+						</iframe> -->
 						<?php 
 						/*
 						if value in json is array -
@@ -84,7 +86,20 @@
 									echo $alte_movie_movie->{'Title'} . ' (' . $alte_movie_code . ')'; 
 								?> 
 								<br/>
+								<p>Poster URL</p>
+								<?php echo $alte_movie_movie->{'Poster'}; ?>
+								<?php
+								header('Content-Type: image/jpeg');
+								$imgUrl = $alte_movie_movie->{'Poster'};
+								if(isset($_GET["imgUrl"])) {
+								    $img = file_get_contents($_GET["imgUrl"]);
+								        echo $img;
+								}
+								?>
 								<!-- <img src="<php echo $alte_movie_movie->{'Poster'}; >" /> -->
+								<!-- <iframe frameborder="0" scrolling="no" width="100%" height="100%" src="<?php echo $alte_movie_movie->{'Poster'};?> >" name="imgbox" id="imgbox">
+								   <p>iframes are not supported by your browser.</p>
+								</iframe> -->
 							<?php else: ?>
 								<p>No current title is selected</p>
 							<?php endif; ?>
