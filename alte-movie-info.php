@@ -3,9 +3,9 @@
 * Plugin Name: ALTE IMDB Info
 * Plugin URI: http://saturdaynightbattleship.com/
 * Description: A custom plugin to display movie information
-* Version: 1.0.5
+* Version: 1.0.6
 * Author: Elise Ferguson
-* Author URI: http://saturdaynightbattleship.com/
+* Author URI: https://github.com/eliseferguson
 * License: GPL2
 **/
 
