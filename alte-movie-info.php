@@ -1,13 +1,9 @@
 <?php
 /**
 * Plugin Name: ALTE IMDB Info
-* Plugin URI: http://saturdaynightbattleship.com/
+* Plugin URI: https://github.com/eliseferguson
 * Description: A custom plugin to display movie information
-<<<<<<< HEAD
-* Version: 1.0.6
-=======
 * Version: 1.0.3
->>>>>>> parent of 63e6d8a... Yet another test
 * Author: Elise Ferguson
 * Author URI: https://github.com/eliseferguson
 * License: GPL2
