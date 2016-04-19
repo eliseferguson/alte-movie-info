@@ -1,15 +1,15 @@
 <?php
 /**
 * Plugin Name: ALTE IMDB Info
-* Plugin URI: https://github.com/eliseferguson
+* Plugin URI: https://github.com/eliseferguson/alte-movie-info
 * Description: A custom plugin to display movie information
-* Version: 1.0.3
+* Version: 1.0.6
 * Author: Elise Ferguson
 * Author URI: https://github.com/eliseferguson
 * License: GPL2
 **/
 
-// EGF testing the updater
+// Updater stuff
 if( ! class_exists( 'Alte_Updater' ) ){
     include_once( plugin_dir_path( __FILE__ ) . 'updater.php' );
 }
@@ -25,7 +25,7 @@ $updater->initialize();
 
 $plugin_url = WP_PLUGIN_URL . '/alte-movie-info';
 $options = array();
-$display_json = true;
+$display_json = false;
 
 // Add a link to the plugin in the admin menu under Settings
 function alte_movie_info_menu() {

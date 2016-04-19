@@ -80,6 +80,14 @@ Right now this is not possible but we will be adding this functionality in futur
 
 == Changelog ==
 
+= 1.0.6 =
+
+* Removed movie poster code that was breaking settings page
+
+= 1.0.3 =
+
+* Testing github updater scripts
+
 = 1.0.1 = 
 
 * Added Updater file
@@ -95,6 +103,14 @@ Right now this is not possible but we will be adding this functionality in futur
 * Option to choose if plot is displayed
 
 == Upgrade Notice ==
+
+= 1.0.6 =
+
+* Removed movie poster code that was breaking settings page
+
+= 1.0.3 =
+
+* Testing github updater scripts
 
 = 1.0.1 =
 
