@@ -43,9 +43,7 @@
 						</p>
 						<p>Movie Poster: 
 						<?php echo $alte_movie_movie->{'Poster'}; ?>
-						<!-- <iframe frameborder="0" scrolling="no" width="100%" height="100%" src="<?php echo $alte_movie_movie->{'Poster'};?> >" name="imgbox" id="imgbox">
-						   <p>iframes are not supported by your browser.</p>
-						</iframe> -->
+						
 						<?php 
 						/*
 						if value in json is array -

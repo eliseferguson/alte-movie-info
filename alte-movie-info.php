@@ -8,6 +8,7 @@
 * Author URI: https://github.com/eliseferguson
 * License: GPL2
 **/
+
 // EGF testing the updater
 if( ! class_exists( 'Alte_Updater' ) ){
     include_once( plugin_dir_path( __FILE__ ) . 'updater.php' );
@@ -24,7 +25,7 @@ $updater->initialize();
 
 $plugin_url = WP_PLUGIN_URL . '/alte-movie-info';
 $options = array();
-$display_json = false;
+$display_json = true;
 
 // Add a link to the plugin in the admin menu under Settings
 function alte_movie_info_menu() {
