@@ -10,23 +10,13 @@
 	<h3><?php echo $alte_movie_info->{'Title'}; ?></h3>
 	<br/>
 	<div class="container-movie-poster">
-	<?php 
-	require_once(ABSPATH . 'wp-admin/includes/media.php');
-	require_once(ABSPATH . 'wp-admin/includes/file.php');
-	require_once(ABSPATH . 'wp-admin/includes/image.php');
-
-	$url = $alte_movie_movie->{'Poster'};
-	$post_id = 1;
-	$desc = "Test Movie Poster";
-
-	$image = media_sideload_image($url, $post_id, $desc);
-	if (is_wp_error($image)) {
-		echo $image->get_error_message();
-	}
-	else {
-		echo $image;
-	}
+	<!-- EGF - settings page gets image and uploads to media, then how do we display that image here using the uploaded one -->
+	<?php
+	    echo wp_get_attachment_image( $id );
+	}  
 	?>
+
+
 	</div>
 	<p><strong>Rated:</strong> <?php echo $alte_movie_info->{'Rated'}; ?></p>
 	<p><strong>Length:</strong> <?php echo $alte_movie_info->{'Runtime'}; ?></p>
