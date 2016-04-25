@@ -200,38 +200,39 @@ function alte_movie_info_get_info($alte_movie_code) {
 	return $alte_movie_movie;
 }
 
-function alte_movie_info_refresh_movie() {
-    $options = get_option('alte_movie_movie');
-    $last_updated= $options['last_updated'];
-    $poster_attachment_id = $options['poster_attachment_id'];
+// shouldn't need to refresh this, the json feed shouldn't change often enough as far as I know
+// function alte_movie_info_refresh_movie() {
+//     $options = get_option('alte_movie_movie');
+//     $last_updated= $options['last_updated'];
+//     $poster_attachment_id = $options['poster_attachment_id'];
     
     
-    $current_time = time();
+//     $current_time = time();
 
-    $update_difference = $current_time - $last_updated;
-    if ( $udpate_difference > 86400 ) {
-        $alte_movie_code = $options['alte_movie_code'];
-        $options['alte_movie_movie'] = alte_movie_info_get_info($alte_movie_code);
-        $options['last_updated'] = time();
-        $options['poster_attachment_id'] = $poster_attachment_id;
+//     $update_difference = $current_time - $last_updated;
+//     if ( $udpate_difference > 86400 ) {
+//         $alte_movie_code = $options['alte_movie_code'];
+//         $options['alte_movie_movie'] = alte_movie_info_get_info($alte_movie_code);
+//         $options['last_updated'] = time();
+//         $options['poster_attachment_id'] = $poster_attachment_id;
 
-        update_option('alte_movie_info', $options);
+//         update_option('alte_movie_info', $options);
 
 
-    }
+//     }
 
-   die();
-}
-add_action('wp_ajax_alte_movie_info_refresh_movie', 'alte_movie_info_refresh_movie');
+//    die();
+// }
+//add_action('wp_ajax_alte_movie_info_refresh_movie', 'alte_movie_info_refresh_movie');
 
-function alte_movie_info_enable_frontend_ajax() {
-?>
-        <script>    
-        var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
-        </script>
-<?php
-}
-add_action('wp_head', 'alte_movie_info_enable_frontend_ajax');
+// function alte_movie_info_enable_frontend_ajax() {
+// end php here and fix php echo below
+//         <script>    
+//         var ajaxurl = '< echo admin_url('admin-ajax.php'); >';
+//         </script>
+// start php here
+// }
+// add_action('wp_head', 'alte_movie_info_enable_frontend_ajax');
 
 function alte_movie_info_styles() {
 	wp_enqueue_style('alte_movie_info_styles', plugins_url('alte-movie-info/alte-movie-info.css') );

@@ -13,9 +13,22 @@
 	<?php
 		//how to get the id out of the options table entry
 		//echo 'ID: ' . $options['poster_attachment_id'] . '<br/>';
-	    echo wp_get_attachment_image($options['poster_attachment_id']);
-	    //egf let's link this to the imdb page
+
+		//egf if returns false no image is available, handle this error
+	    echo wp_get_attachment_image($options['poster_attachment_id'], 'original' );
+
 	    //egf can we get something other than the thumbnail?
+	    //wp_get_attachment_image_src ( int $attachment_id, string|array $size = 'thumbnail', bool $icon = false )
+	 	// (string|array) (Optional) Image size. Accepts any valid image size, or an array of width and height values in pixels (in that order).
+		// Default value: 'thumbnail'
+
+		//egf show the thumbnail in the widget but original size in the shortcode
+	    
+	    //egf let's link this to the imdb page
+
+	    //egf options to show or hide poster
+	    //egf options to show or hide link to imdb
+	    
 	?>
 
 
