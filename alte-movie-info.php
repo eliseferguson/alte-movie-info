@@ -27,6 +27,7 @@ $plugin_url = WP_PLUGIN_URL . '/alte-movie-info';
 $options = array();
 $display_json = false;
 
+
 // Add a link to the plugin in the admin menu under Settings
 function alte_movie_info_menu() {
 	add_options_page(
@@ -51,13 +52,39 @@ function alte_movie_info_options_page() {
     if(isset($_POST['alte_movie_code_form_submitted'])) {
     	$hidden_field = esc_html($_POST['alte_movie_code_form_submitted']);
     	if($hidden_field == 'Y') {
-    		$alte_movie_code = esc_html($_POST['alte_movie_code']);
+    		//get the code that the user inputed
+            $alte_movie_code = esc_html($_POST['alte_movie_code']);
 
+            //get the movie info based on the code
     		$alte_movie_movie = alte_movie_info_get_info($alte_movie_code);
-    		
+
+            //get the image based on the code
+            $url = $alte_movie_movie->{'Poster'};
+            $post_id = 1;
+            $desc = $alte_movie_movie->{'Title'} . ' Movie Poster';
+            
+            //check if image exists with the $desc as the title
+            if( wp_exist_media_by_title( $desc ) != false ) {
+                //media exist just return the attachment id
+                // echo 'Media exists already <br/>';
+                // echo $desc;
+                
+                $poster_attachment_id = wp_exist_media_by_title($desc);
+            } else { 
+                //media does not exist so upload it and return attachment id
+                $poster_attachment_id = upload_movie_image( $url, $post_id, $desc );
+                // echo 'The media does not exist <br/>';
+                // echo $desc;
+            }
+ 		
+            echo 'This should be the ID: ' . $poster_attachment_id;
+
+            //put the movie info into the database
     		$options['alte_movie_code'] = $alte_movie_code;
     		$options['alte_movie_movie'] = $alte_movie_movie;
     		$options['last_updated'] = time();
+            $options['poster_attachment_id'] = $poster_attachment_id;
+            
 
     		update_option('alte_movie_movie', $options);
     	}
@@ -68,10 +95,29 @@ function alte_movie_info_options_page() {
     if($options != '') {
     	$alte_movie_code = $options['alte_movie_code'];
     	$alte_movie_movie = $options['alte_movie_movie'];
+        $poster_attachment_id = $options['poster_attachment_id'];
     }
     //var_dump( $alte_movie_movie );
+    //echo 'Still have the id: ' . $poster_attachment_id;
 	require('inc/options-page-wrapper.php');
 }
+
+function wp_exist_media_by_title( $title ) {
+    global $wpdb;
+    //egf this query isn't getting what it should
+    //$return = $wpdb->get_row( "SELECT ID FROM wp_posts WHERE post_title = '" . $title . "' && post_status = 'publish' && post_type = 'attachment' ", 'ARRAY_N' );
+    $return = $wpdb->get_row($wpdb->prepare("SELECT * FROM TpoyqsZMposts WHERE post_title = %s && post_type = 'attachment' limit 1", $title));
+    echo 'id: ' . $return->ID . '<br/>';
+    
+    if( empty( $return ) ) {
+        return false;
+    } else {
+        echo "Return: " . $return->ID . "<br/>";
+        //return true;
+        return $return->ID;
+    }
+}
+ 
 
 class alte_movie_Movie_Widget extends WP_Widget {
 
@@ -86,11 +132,12 @@ class alte_movie_Movie_Widget extends WP_Widget {
         extract($args);
         $title = apply_filters('widget_title', $instance['title']);
         $show_plot = $instance['show_plot'];
+        //egf what about attachment id?
         
         $options = get_option('alte_movie_movie');
         
         $alte_movie_info = $options['alte_movie_movie'];
-
+        
         require('inc/front-end.php');
     }
 
@@ -156,6 +203,9 @@ function alte_movie_info_get_info($alte_movie_code) {
 function alte_movie_info_refresh_movie() {
     $options = get_option('alte_movie_movie');
     $last_updated= $options['last_updated'];
+    $poster_attachment_id = $options['poster_attachment_id'];
+    
+    
     $current_time = time();
 
     $update_difference = $current_time - $last_updated;
@@ -163,6 +213,7 @@ function alte_movie_info_refresh_movie() {
         $alte_movie_code = $options['alte_movie_code'];
         $options['alte_movie_movie'] = alte_movie_info_get_info($alte_movie_code);
         $options['last_updated'] = time();
+        $options['poster_attachment_id'] = $poster_attachment_id;
 
         update_option('alte_movie_info', $options);
 
@@ -197,51 +248,22 @@ function alte_movie_info_frontend_scripts_and_styles() {
 add_action( 'wp_enqueue_scripts', 'alte_movie_info_frontend_scripts_and_styles' );
 
 
-// function media_sideload_image_id( $file, $post_id, $desc = null, $return = 'src' ) {
-//     if ( ! empty( $file ) ) {
- 
-//         // Set variables for storage, fix file filename for query strings.
-//         preg_match( '/[^\?]+\.(jpe?g|jpe|gif|png)\b/i', $file, $matches );
-//         if ( ! $matches ) {
-//             return new WP_Error( 'image_sideload_failed', __( 'Invalid image URL' ) );
-//         }
- 
-//         $file_array = array();
-//         $file_array['name'] = basename( $matches[0] );
- 
-//         // Download file to temp location.
-//         $file_array['tmp_name'] = download_url( $file );
- 
-//         // If error storing temporarily, return the error.
-//         if ( is_wp_error( $file_array['tmp_name'] ) ) {
-//             return $file_array['tmp_name'];
-//         }
- 
-//         // Do the validation and storage stuff.
-//         $id = media_handle_sideload( $file_array, $post_id, $desc );
- 
-//         // If error storing permanently, unlink.
-//         if ( is_wp_error( $id ) ) {
-//             @unlink( $file_array['tmp_name'] );
-//             return $id;
-//         }
- 
-//         $src = wp_get_attachment_url( $id );
-//     }
- 
-//     // Finally, check to make sure the file has been saved, then return the HTML.
-//     if ( ! empty( $src ) ) {
-//         if ( $return === 'src' ) {
-//             //return $src;
-//             return $id;
-//         }
- 
-//         $alt = isset( $desc ) ? esc_attr( $desc ) : '';
-//         $html = "<img src='$src' alt='$alt' />";
-//         return $html;
-//     } else {
-//         return new WP_Error( 'image_sideload_failed' );
-//     }
-// }
+function get_attachment_id_from_src ($image_src) {
+  global $wpdb;
+  $query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$image_src'";
+  $id = $wpdb->get_var($query);
+  return $id;
+}
+function upload_movie_image( $url, $post_id, $desc ) {
+    // Upload an Image
+    $image = media_sideload_image($url, $post_id, $desc);
+     
+    // Remove any unwanted HTML, keep just a plain URL (or whatever is in the image src="..." )
+    $image = preg_replace('/.*(?<=src=["\'])([^"\']*)(?=["\']).*/', '$1', $image);
+    
+    $attachment_id = get_attachment_id_from_src ($image);
+    return $attachment_id;
+}  
+    
 
 ?>

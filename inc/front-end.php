@@ -10,10 +10,10 @@
 	<h3><?php echo $alte_movie_info->{'Title'}; ?></h3>
 	<br/>
 	<div class="container-movie-poster">
-	<!-- EGF - settings page gets image and uploads to media, then how do we display that image here using the uploaded one -->
 	<?php
-	    echo wp_get_attachment_image( $id );
-	}  
+		//how to get the id out of the options table entry
+		//echo 'ID: ' . $options['poster_attachment_id'] . '<br/>';
+	    echo wp_get_attachment_image($options['poster_attachment_id']);
 	?>
 
 

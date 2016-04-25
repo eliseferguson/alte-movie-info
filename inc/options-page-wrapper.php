@@ -88,28 +88,11 @@
                                 Movie Poster:
                                 <br/>
 								<?php 
-								// EGF move this to alte-movie-info.php file and then use the id here and front-end
-								$url = $alte_movie_movie->{'Poster'};
-								$post_id = 1;
-								$desc = $alte_movie_movie->{'Title'} . ' Movie Poster';
 
-								function get_attachment_id_from_src ($image_src) {
-							      global $wpdb;
-							      $query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$image_src'";
-							      $id = $wpdb->get_var($query);
-							      return $id;
-							    }
-								 
-								// Upload an Image
-								$image = media_sideload_image($url, $post_id, $desc);
-								 
-								// Remove any unwanted HTML, keep just a plain URL (or whatever is in the image src="..." )
-								$image = preg_replace('/.*(?<=src=["\'])([^"\']*)(?=["\']).*/', '$1', $image);
-								 
-								// Get the Attachment ID
-								$attachment_id = get_attachment_id_from_src ($image);
-								echo "ID: " . $attachment_id;
-								echo wp_get_attachment_image($attachment_id);
+								//spit out the attachment id assuming it's working right
+								//echo 'ID: ' . $options['poster_attachment_id'];
+								// echo "<br/>";
+								echo wp_get_attachment_image($poster_attachment_id);
 								?>
 							<?php else: ?>
 								<p>No current title is selected</p>
