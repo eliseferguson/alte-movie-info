@@ -3,7 +3,7 @@
 * Plugin Name: ALTE IMDB Info
 * Plugin URI: https://github.com/eliseferguson/alte-movie-info
 * Description: A custom plugin to display movie information
-* Version: 1.0.6
+* Version: 1.0.7
 * Author: Elise Ferguson
 * Author URI: https://github.com/eliseferguson
 * License: GPL2
@@ -77,7 +77,7 @@ function alte_movie_info_options_page() {
                 // echo $desc;
             }
  		
-            echo 'This should be the ID: ' . $poster_attachment_id;
+            //echo 'This should be the ID: ' . $poster_attachment_id;
 
             //put the movie info into the database
     		$options['alte_movie_code'] = $alte_movie_code;
@@ -107,12 +107,12 @@ function wp_exist_media_by_title( $title ) {
     //egf this query isn't getting what it should
     //$return = $wpdb->get_row( "SELECT ID FROM wp_posts WHERE post_title = '" . $title . "' && post_status = 'publish' && post_type = 'attachment' ", 'ARRAY_N' );
     $return = $wpdb->get_row($wpdb->prepare("SELECT * FROM TpoyqsZMposts WHERE post_title = %s && post_type = 'attachment' limit 1", $title));
-    echo 'id: ' . $return->ID . '<br/>';
+    //echo 'id: ' . $return->ID . '<br/>';
     
     if( empty( $return ) ) {
         return false;
     } else {
-        echo "Return: " . $return->ID . "<br/>";
+        //echo "Return: " . $return->ID . "<br/>";
         //return true;
         return $return->ID;
     }

@@ -14,6 +14,8 @@
 		//how to get the id out of the options table entry
 		//echo 'ID: ' . $options['poster_attachment_id'] . '<br/>';
 	    echo wp_get_attachment_image($options['poster_attachment_id']);
+	    //egf let's link this to the imdb page
+	    //egf can we get something other than the thumbnail?
 	?>
 
 
