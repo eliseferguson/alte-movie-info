@@ -21,10 +21,13 @@
 							<input type="hidden" name="alte_movie_code_form_submitted" value="Y"/>
 							<table class="widefat">	
 								<tr>
-									<td><label for="alte_movie_code">IMDB Movie Code</label></td>
-									<td><input name="alte_movie_code" id="alte_movie_code" type="text" value="" class="regular-text" /></td>
+									<td><label for="alte_movie_code1">IMDB Movie Code 1:</label></td>
+									<td><input name="alte_movie_code1" id="alte_movie_code1" type="text" value="" class="regular-text" /></td>
 								</tr>
-								
+								<tr>
+									<td><label for="alte_movie_code2">IMDB Movie Code 2:</label></td>
+									<td><input name="alte_movie_code2" id="alte_movie_code2" type="text" value="" class="regular-text" /></td>
+								</tr>
 							</table>
 
 							<p><input class="button-primary" type="submit" name="alte_movie_code_submit" value="Save" /></p>
@@ -39,10 +42,10 @@
 
 						<h2><span>Json Feed</h2>
 						<p>Movie Title: 
-						<?php echo $alte_movie_movie->{'Title'}; ?>
+						<?php echo $alte_movie_movie1->{'Title'}; ?>
 						</p>
 						<p>Movie Poster: 
-						<?php echo $alte_movie_movie->{'Poster'}; ?>
+						<?php echo $alte_movie_movie1->{'Poster'}; ?>
 
 						<?php 
 						/*
@@ -52,7 +55,7 @@
 						</p>
 						<div class="inside">
 							<pre><code>
-								<?php var_dump($alte_movie_movie); ?>
+								<?php var_dump($alte_movie_movie1); ?>
 							</code></pre>
 						</div>
 						<!-- .inside -->
@@ -75,27 +78,32 @@
 
 					<div class="postbox">
 
-						<h2>Current Movie</h2>
+						<h2>Current Movies</h2>
 
 						<div class="inside">
-							<?php if(isset($alte_movie_code) || $alte_movie_code != '' ):	?>	
-								<p>Current Movie Displaying on Site: </p>
+							<?php if(isset($alte_movie_code1) || $alte_movie_code1 != '' ):	?>	
+								<h3>Movie 1 - </h3>
 								<?php 
-									echo $alte_movie_movie->{'Title'} . ' (' . $alte_movie_code . ')'; 
+									echo $alte_movie_movie1->{'Title'} . ' (' . $alte_movie_code1 . ')'; 
 								?> 
 								<br/>
-								<!-- Movie Poster URL: <php echo $alte_movie_movie->{'Poster'}; > -->
-                                Movie Poster:
+                                Poster:
                                 <br/>
 								<?php 
-
-								//spit out the attachment id assuming it's working right
-								//echo 'ID: ' . $options['poster_attachment_id'];
-								// echo "<br/>";
-								echo wp_get_attachment_image($poster_attachment_id);
+								echo wp_get_attachment_image($poster_attachment_id1);
+								?>
+								<h3>Movie 2 - </h3>
+								<?php 
+									echo $alte_movie_movie2->{'Title'} . ' (' . $alte_movie_code2 . ')'; 
+								?> 
+								<br/>
+                                Poster:
+                                <br/>
+								<?php 
+								echo wp_get_attachment_image($poster_attachment_id2);
 								?>
 							<?php else: ?>
-								<p>No current title is selected</p>
+								<!-- <p>No current title is selected</p> -->
 							<?php endif; ?>
 						</div>
 						<!-- .inside -->

@@ -53,51 +53,70 @@ function alte_movie_info_options_page() {
     	$hidden_field = esc_html($_POST['alte_movie_code_form_submitted']);
     	if($hidden_field == 'Y') {
     		//get the code that the user inputed
-            $alte_movie_code = esc_html($_POST['alte_movie_code']);
+            $alte_movie_code1 = esc_html($_POST['alte_movie_code1']);
+            $alte_movie_code2 = esc_html($_POST['alte_movie_code2']);
 
             //get the movie info based on the code
-    		$alte_movie_movie = alte_movie_info_get_info($alte_movie_code);
+    		$alte_movie_movie1 = alte_movie_info_get_info($alte_movie_code1);
+            $alte_movie_movie2 = alte_movie_info_get_info($alte_movie_code2);
 
             //get the image based on the code
-            $url = $alte_movie_movie->{'Poster'};
+            $url1 = $alte_movie_movie1->{'Poster'};
+            $url2 = $alte_movie_movie2->{'Poster'};
             $post_id = 1;
-            $desc = $alte_movie_movie->{'Title'} . ' Movie Poster';
+            $desc1 = $alte_movie_movie1->{'Title'} . ' Movie Poster';
+            $desc2 = $alte_movie_movie2->{'Title'} . ' Movie Poster';
             
             //check if image exists with the $desc as the title
-            if( wp_exist_media_by_title( $desc ) != false ) {
+            if( wp_exist_media_by_title( $desc1 ) != false ) {
                 //media exist just return the attachment id
                 // echo 'Media exists already <br/>';
                 // echo $desc;
                 
-                $poster_attachment_id = wp_exist_media_by_title($desc);
+                $poster_attachment_id1 = wp_exist_media_by_title($desc1);
             } else { 
                 //media does not exist so upload it and return attachment id
-                $poster_attachment_id = upload_movie_image( $url, $post_id, $desc );
+                $poster_attachment_id1 = upload_movie_image( $url1, $post_id, $desc1 );
                 // echo 'The media does not exist <br/>';
                 // echo $desc;
+            }
+            if( wp_exist_media_by_title( $desc2 ) != false ) {
+                $poster_attachment_id2 = wp_exist_media_by_title($desc2);
+            } else { 
+                $poster_attachment_id2 = upload_movie_image( $url2, $post_id, $desc2 );
             }
  		
             //echo 'This should be the ID: ' . $poster_attachment_id;
 
             //put the movie info into the database
-    		$options['alte_movie_code'] = $alte_movie_code;
-    		$options['alte_movie_movie'] = $alte_movie_movie;
+    		$options['alte_movie_code1'] = $alte_movie_code1;
+            $options['alte_movie_code2'] = $alte_movie_code2;
+    		$options['alte_movie_movie1'] = $alte_movie_movie1;
+            $options['alte_movie_movie2'] = $alte_movie_movie2;
     		$options['last_updated'] = time();
-            $options['poster_attachment_id'] = $poster_attachment_id;
+            $options['poster_attachment_id1'] = $poster_attachment_id1;
+            $options['poster_attachment_id2'] = $poster_attachment_id2;
             
 
-    		update_option('alte_movie_movie', $options);
+    		update_option('alte_movie_movie1', $options);
+            update_option('alte_movie_movie2', $options);
     	}
-    	//echo $alte_movie_code;
+    	//echo $alte_movie_code1;
     }
 
-    $options = get_option('alte_movie_movie');
+    $options = get_option('alte_movie_movie1');
     if($options != '') {
-    	$alte_movie_code = $options['alte_movie_code'];
-    	$alte_movie_movie = $options['alte_movie_movie'];
-        $poster_attachment_id = $options['poster_attachment_id'];
+    	$alte_movie_code1 = $options['alte_movie_code1'];
+    	$alte_movie_movie1 = $options['alte_movie_movie1'];
+        $poster_attachment_id1 = $options['poster_attachment_id1'];
     }
-    //var_dump( $alte_movie_movie );
+    $options = get_option('alte_movie_movie2');
+    if($options != '') {
+        $alte_movie_code2 = $options['alte_movie_code2'];
+        $alte_movie_movie2 = $options['alte_movie_movie2'];
+        $poster_attachment_id2 = $options['poster_attachment_id2'];
+    }
+    //var_dump( $alte_movie_movie1 );
     //echo 'Still have the id: ' . $poster_attachment_id;
 	require('inc/options-page-wrapper.php');
 }
@@ -132,11 +151,12 @@ class alte_movie_Movie_Widget extends WP_Widget {
         extract($args);
         $title = apply_filters('widget_title', $instance['title']);
         $show_plot = $instance['show_plot'];
-        //egf what about attachment id?
         
-        $options = get_option('alte_movie_movie');
-        
-        $alte_movie_info = $options['alte_movie_movie'];
+        $options = get_option('alte_movie_movie1');
+        $alte_movie_info1 = $options['alte_movie_movie1'];
+
+        $options = get_option('alte_movie_movie2');
+        $alte_movie_info2 = $options['alte_movie_movie2'];
         
         require('inc/front-end.php');
     }
@@ -146,6 +166,9 @@ class alte_movie_Movie_Widget extends WP_Widget {
         $instance = $old_instance;
         $instance['title'] = strip_tags($new_instance['title']);
         $instance['show_plot'] = strip_tags($new_instance['show_plot']);
+        $instance['show_poster'] = strip_tags($new_instance['show_poster']);
+        $instance['link_imdb'] = strip_tags($new_instance['link_imdb']);
+        $instance['link_trailer'] = strip_tags($new_instance['link_trailer']);
 
         return $instance;
     }
@@ -155,6 +178,9 @@ class alte_movie_Movie_Widget extends WP_Widget {
 
         $title = esc_attr($instance['title']);
         $show_plot = esc_attr($instance['show_plot']);
+        $show_poster = esc_attr($instance['show_poster']);
+        $link_imdb = esc_attr($instance['link_imdb']);
+        $link_trailer = esc_attr($instance['link_trailer']);
         require('inc/widget-fields.php');
     }
 }
@@ -171,16 +197,34 @@ function alte_movie_info_shortcode($atts, $content = null) {
     global $post;
     
     extract(shortcode_atts( array(
-            'plot' => 'yes'
+            'plot' => 'yes',
+            'poster' => 'yes',
+            'link' => 'yes',
+            'trailer' => 'yes'
     ), $atts));
     
     if($plot == 'yes') $plot = 1;
     if($plot == 'no') $plot = 0;
+
+    if($poster == 'yes') $poster = 1;
+    if($poster == 'no') $poster = 0;
+
+    if($link == 'yes') $link = 1;
+    if($link == 'no') $link = 0;
+
+    if($trailer == 'yes') $trailer = 1;
+    if($trailer == 'no') $trailer = 0;
     
     $show_plot = $plot;
-    
-    $options = get_option('alte_movie_movie');
-    $alte_movie_info = $options['alte_movie_movie'];
+    $show_poster = $poster;
+    $link_imdb = $link;
+    $link_trailer = $trailer;
+
+    //egf not sure about this, do I want more than one short code, the widget options are one option for both movies
+    $options = get_option('alte_movie_movie1');
+    $alte_movie_info1 = $options['alte_movie_movie1'];
+    $options = get_option('alte_movie_movie2');
+    $alte_movie_info2 = $options['alte_movie_movie2'];
 
     ob_start();
     require('inc/front-end.php');
@@ -200,39 +244,6 @@ function alte_movie_info_get_info($alte_movie_code) {
 	return $alte_movie_movie;
 }
 
-// shouldn't need to refresh this, the json feed shouldn't change often enough as far as I know
-// function alte_movie_info_refresh_movie() {
-//     $options = get_option('alte_movie_movie');
-//     $last_updated= $options['last_updated'];
-//     $poster_attachment_id = $options['poster_attachment_id'];
-    
-    
-//     $current_time = time();
-
-//     $update_difference = $current_time - $last_updated;
-//     if ( $udpate_difference > 86400 ) {
-//         $alte_movie_code = $options['alte_movie_code'];
-//         $options['alte_movie_movie'] = alte_movie_info_get_info($alte_movie_code);
-//         $options['last_updated'] = time();
-//         $options['poster_attachment_id'] = $poster_attachment_id;
-
-//         update_option('alte_movie_info', $options);
-
-
-//     }
-
-//    die();
-// }
-//add_action('wp_ajax_alte_movie_info_refresh_movie', 'alte_movie_info_refresh_movie');
-
-// function alte_movie_info_enable_frontend_ajax() {
-// end php here and fix php echo below
-//         <script>    
-//         var ajaxurl = '< echo admin_url('admin-ajax.php'); >';
-//         </script>
-// start php here
-// }
-// add_action('wp_head', 'alte_movie_info_enable_frontend_ajax');
 
 function alte_movie_info_styles() {
 	wp_enqueue_style('alte_movie_info_styles', plugins_url('alte-movie-info/alte-movie-info.css') );
