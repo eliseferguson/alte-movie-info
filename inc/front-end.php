@@ -9,7 +9,11 @@
 <div class="container-movie1">
 	<h3><?php echo $alte_movie_info1->{'Title'}; ?></h3>
 	<br/>
+	<?php if($show_poster == "1"): ?>
 	<div class="container-movie-poster">
+	<?php if($link_imdb == "1"): ?>
+	<a href="http://www.imdb.com/title/tt2702724" target="_blank">
+	<?php endif; ?>
 	<?php
 		//how to get the id out of the options table entry
 		//echo 'ID: ' . $options['poster_attachment_id'] . '<br/>';
@@ -30,9 +34,11 @@
 	    //egf options to show or hide link to imdb
 	    
 	?>
-
-
+	<?php if($link_imdb == "1"): ?>
+	</a>
+	<?php endif; ?>
 	</div>
+	<?php endif; ?>
 	<p><strong>Rated:</strong> <?php echo $alte_movie_info1->{'Rated'}; ?></p>
 	<p><strong>Length:</strong> <?php echo $alte_movie_info1->{'Runtime'}; ?></p>
 	<p><strong>Starring:</strong> <?php echo $alte_movie_info1->{'Actors'}; ?></p>
@@ -43,7 +49,12 @@
 		</p>
 
 	<?php endif; ?>
+
+	<?php if($link_trailer == "1" ): ?>
+		<a class="link-trailer" href="http://www.imdb.com/title/tt2702724" target="_blank">View Trailers</a>
+	<?php endif; ?>
 </div>
+
 <div class="container-movie2">
 	<h3><?php echo $alte_movie_info2->{'Title'}; ?></h3>
 	<br/>
