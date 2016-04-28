@@ -151,6 +151,9 @@ class alte_movie_Movie_Widget extends WP_Widget {
         extract($args);
         $title = apply_filters('widget_title', $instance['title']);
         $show_plot = $instance['show_plot'];
+        $show_poster = $instance['show_poster'];
+        $link_imdb = $instance['link_imdb'];
+        $link_trailer = $instance['link_trailer'];
         
         $options = get_option('alte_movie_movie1');
         $alte_movie_info1 = $options['alte_movie_movie1'];
@@ -233,6 +236,8 @@ function alte_movie_info_shortcode($atts, $content = null) {
 } 
 add_shortcode('alte_movie_info', 'alte_movie_info_shortcode');
 
+//egf how to have two shortcodes, one for each movie but still display widget as both movies? or do we have a widget per movie?
+
 function alte_movie_info_get_info($alte_movie_code) {
 	
 	$json_feed_url = 'http://www.omdbapi.com/?i=' . $alte_movie_code . '&plot=short&r=json';
@@ -246,19 +251,20 @@ function alte_movie_info_get_info($alte_movie_code) {
 
 
 function alte_movie_info_styles() {
+    //admin area css
 	wp_enqueue_style('alte_movie_info_styles', plugins_url('alte-movie-info/alte-movie-info.css') );
 
 }
 add_action('admin_head', 'alte_movie_info_styles');
 
-function alte_movie_info_frontend_scripts_and_styles() {
-
-    
-    wp_enqueue_script( 'alte_movie_info_js', plugins_url( 'alte-movie-info/alte-movie-info.js' ), array('jquery'), '', true );
+function alte_movie_info_frontend_scripts_styles() {
+    //add some custom css for the front-end
+    wp_enqueue_style('alte_movie_info_frontend_css', plugins_url('alte-movie-info/alte-movie-info.css'));
+    wp_enqueue_script('alte_movie_info_frontend_js', plugins_url('alte-movie-info/alte-movie-info.js'), array('jquery'), '', true);
 
 }
-add_action( 'wp_enqueue_scripts', 'alte_movie_info_frontend_scripts_and_styles' );
 
+add_action('wp_enqueue_scripts', 'alte_movie_info_frontend_scripts_styles');
 
 function get_attachment_id_from_src ($image_src) {
   global $wpdb;

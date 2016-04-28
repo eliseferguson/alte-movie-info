@@ -1,0 +1,5 @@
+.container-movie1, .container-movie2 {  
+	clear: both;
+	display: block;
+	margin: 20px 0;
+}
