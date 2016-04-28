@@ -195,6 +195,47 @@ function alte_movie_movie_register_widgets() {
 add_action( 'widgets_init', 'alte_movie_movie_register_widgets' );
 
 
+// function alte_movie_info_shortcode($atts, $content = null) {
+    
+//     global $post;
+    
+//     extract(shortcode_atts( array(
+//             'plot' => 'yes',
+//             'poster' => 'yes',
+//             'link' => 'yes',
+//             'trailer' => 'yes'
+//     ), $atts));
+    
+//     if($plot == 'yes') $plot = 1;
+//     if($plot == 'no') $plot = 0;
+
+//     if($poster == 'yes') $poster = 1;
+//     if($poster == 'no') $poster = 0;
+
+//     if($link == 'yes') $link = 1;
+//     if($link == 'no') $link = 0;
+
+//     if($trailer == 'yes') $trailer = 1;
+//     if($trailer == 'no') $trailer = 0;
+    
+//     $show_plot = $plot;
+//     $show_poster = $poster;
+//     $link_imdb = $link;
+//     $link_trailer = $trailer;
+
+//     //egf not sure about this, do I want more than one short code, the widget options are one option for both movies
+//     $options = get_option('alte_movie_movie1');
+//     $alte_movie_info1 = $options['alte_movie_movie1'];
+//     $options = get_option('alte_movie_movie2');
+//     $alte_movie_info2 = $options['alte_movie_movie2'];
+
+//     ob_start();
+//     require('inc/front-end.php');
+//     $content = ob_get_clean();
+//     return $content;
+// } 
+// add_shortcode('alte_movie_info', 'alte_movie_info_shortcode');
+
 function alte_movie_info_shortcode($atts, $content = null) {
     
     global $post;
@@ -203,7 +244,8 @@ function alte_movie_info_shortcode($atts, $content = null) {
             'plot' => 'yes',
             'poster' => 'yes',
             'link' => 'yes',
-            'trailer' => 'yes'
+            'trailer' => 'yes',
+            'which_movie' => '1'
     ), $atts));
     
     if($plot == 'yes') $plot = 1;
@@ -223,14 +265,13 @@ function alte_movie_info_shortcode($atts, $content = null) {
     $link_imdb = $link;
     $link_trailer = $trailer;
 
-    //egf not sure about this, do I want more than one short code, the widget options are one option for both movies
     $options = get_option('alte_movie_movie1');
     $alte_movie_info1 = $options['alte_movie_movie1'];
     $options = get_option('alte_movie_movie2');
     $alte_movie_info2 = $options['alte_movie_movie2'];
 
     ob_start();
-    require('inc/front-end.php');
+    require('inc/front-end-shortcode.php');
     $content = ob_get_clean();
     return $content;
 } 

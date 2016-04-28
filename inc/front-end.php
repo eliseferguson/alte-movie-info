@@ -16,7 +16,7 @@
 			<?php endif; ?> 
 			<?php
 				//egf if returns false no image is available, handle this error
-			    echo wp_get_attachment_image($options['poster_attachment_id1'], array(214,317) );
+			    echo wp_get_attachment_image($options['poster_attachment_id1'], 'thumbnail' );
 
 				//egf show the thumbnail in the widget but original size in the shortcode, can I tell if this is a short code or widget?
 			    
@@ -52,7 +52,7 @@
 			<?php endif; ?> 
 			<?php
 				//egf if returns false no image is available, handle this error
-			    echo wp_get_attachment_image($options['poster_attachment_id2'], array(214,317) );
+			    echo wp_get_attachment_image($options['poster_attachment_id2'], 'thumbnail' );
 
 				//egf show the thumbnail in the widget but original size in the shortcode, can I tell if this is a short code or widget?
 			    
