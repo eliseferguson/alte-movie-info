@@ -9,17 +9,18 @@
 <div class="container-movie1">
 	<h3><?php echo $alte_movie_info1->{'Title'}; ?></h3>
 	<br/>
+	<?php
+		$the_imdb_link = 'http://www.imdb.com/title/' . $alte_movie_info1->{'imdbID'}; 
+		//echo 'Link: ' . $the_imdb_link;
+	?>
 	<?php if($show_poster == "1"): ?>
 		<div class="container-movie-poster">
 			<?php if($link_imdb == "1"): ?>
-				<a href="http://www.imdb.com/title/tt2702724" target="_blank">
+				<a href="<?php echo $the_imdb_link; ?>" target="_blank">
 			<?php endif; ?> 
 			<?php
-				//egf if returns false no image is available, handle this error
 			    echo wp_get_attachment_image($options['poster_attachment_id1'], 'thumbnail' );
-
-				//egf show the thumbnail in the widget but original size in the shortcode, can I tell if this is a short code or widget?
-			    
+			    //returns empty string on failure
 			?>
 			<?php if($link_imdb == "1"): ?>
 			</a>
@@ -38,24 +39,24 @@
 	<?php endif; ?>
 
 	<?php if($link_trailer == "1" ): ?>
-		<a class="link-trailer" href="http://www.imdb.com/title/tt2702724/videogallery" target="_blank">View Trailers</a>
+		<a class="link-trailer" href="<?php echo $the_imdb_link; ?>/videogallery" target="_blank">View Trailers</a>
 	<?php endif; ?>
 </div>
-
 <div class="container-movie2">
 	<h3><?php echo $alte_movie_info2->{'Title'}; ?></h3>
 	<br/>
+	<?php
+		$the_imdb_link2 = 'http://www.imdb.com/title/' . $alte_movie_info2->{'imdbID'}; 
+		//echo 'Link: ' . $the_imdb_link;
+	?>
 	<?php if($show_poster == "1"): ?>
 		<div class="container-movie-poster">
 			<?php if($link_imdb == "1"): ?>
-				<a href="http://www.imdb.com/title/tt2702724" target="_blank">
+				<a href="<?php echo $the_imdb_link2; ?>" target="_blank">
 			<?php endif; ?> 
 			<?php
-				//egf if returns false no image is available, handle this error
 			    echo wp_get_attachment_image($options['poster_attachment_id2'], 'thumbnail' );
-
-				//egf show the thumbnail in the widget but original size in the shortcode, can I tell if this is a short code or widget?
-			    
+			    //returns empty string on failure
 			?>
 			<?php if($link_imdb == "1"): ?>
 			</a>
@@ -74,7 +75,7 @@
 	<?php endif; ?>
 
 	<?php if($link_trailer == "1" ): ?>
-		<a class="link-trailer" href="http://www.imdb.com/title/tt2702724/videogallery" target="_blank">View Trailers</a>
+		<a class="link-trailer" href="<?php echo $the_imdb_link2; ?>/videogallery" target="_blank">View Trailers</a>
 	<?php endif; ?>
 </div>
 <?php

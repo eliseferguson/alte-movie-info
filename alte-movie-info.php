@@ -123,8 +123,7 @@ function alte_movie_info_options_page() {
 
 function wp_exist_media_by_title( $title ) {
     global $wpdb;
-    //egf this query isn't getting what it should
-    //$return = $wpdb->get_row( "SELECT ID FROM wp_posts WHERE post_title = '" . $title . "' && post_status = 'publish' && post_type = 'attachment' ", 'ARRAY_N' );
+
     $return = $wpdb->get_row($wpdb->prepare("SELECT * FROM TpoyqsZMposts WHERE post_title = %s && post_type = 'attachment' limit 1", $title));
     //echo 'id: ' . $return->ID . '<br/>';
     
@@ -162,6 +161,7 @@ class alte_movie_Movie_Widget extends WP_Widget {
         $alte_movie_info2 = $options['alte_movie_movie2'];
         
         require('inc/front-end.php');
+        
     }
 
     function update( $new_instance, $old_instance ) {
@@ -194,47 +194,6 @@ function alte_movie_movie_register_widgets() {
 
 add_action( 'widgets_init', 'alte_movie_movie_register_widgets' );
 
-
-// function alte_movie_info_shortcode($atts, $content = null) {
-    
-//     global $post;
-    
-//     extract(shortcode_atts( array(
-//             'plot' => 'yes',
-//             'poster' => 'yes',
-//             'link' => 'yes',
-//             'trailer' => 'yes'
-//     ), $atts));
-    
-//     if($plot == 'yes') $plot = 1;
-//     if($plot == 'no') $plot = 0;
-
-//     if($poster == 'yes') $poster = 1;
-//     if($poster == 'no') $poster = 0;
-
-//     if($link == 'yes') $link = 1;
-//     if($link == 'no') $link = 0;
-
-//     if($trailer == 'yes') $trailer = 1;
-//     if($trailer == 'no') $trailer = 0;
-    
-//     $show_plot = $plot;
-//     $show_poster = $poster;
-//     $link_imdb = $link;
-//     $link_trailer = $trailer;
-
-//     //egf not sure about this, do I want more than one short code, the widget options are one option for both movies
-//     $options = get_option('alte_movie_movie1');
-//     $alte_movie_info1 = $options['alte_movie_movie1'];
-//     $options = get_option('alte_movie_movie2');
-//     $alte_movie_info2 = $options['alte_movie_movie2'];
-
-//     ob_start();
-//     require('inc/front-end.php');
-//     $content = ob_get_clean();
-//     return $content;
-// } 
-// add_shortcode('alte_movie_info', 'alte_movie_info_shortcode');
 
 function alte_movie_info_shortcode($atts, $content = null) {
     
@@ -277,7 +236,6 @@ function alte_movie_info_shortcode($atts, $content = null) {
 } 
 add_shortcode('alte_movie_info', 'alte_movie_info_shortcode');
 
-//egf how to have two shortcodes, one for each movie but still display widget as both movies? or do we have a widget per movie?
 
 function alte_movie_info_get_info($alte_movie_code) {
 	
