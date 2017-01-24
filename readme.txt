@@ -2,8 +2,8 @@
 Contributors: Elise Ferguson
 Tags: movie, imdb, films
 Requires at least: 4.0.1
-Tested up to: 4.4.2
-Stable tag: 1.0.1
+Tested up to: 4.7.1
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,10 @@ Right now this is not possible but we will be adding this functionality in futur
 
 
 == Changelog ==
+
+= 1.1.0 =
+
+* Updated deprecated code for php7 style constructors *
 
 = 1.0.7 =
 

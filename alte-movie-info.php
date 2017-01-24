@@ -3,7 +3,7 @@
 * Plugin Name: ALTE IMDB Info
 * Plugin URI: https://github.com/eliseferguson/alte-movie-info
 * Description: A custom plugin to display movie information
-* Version: 1.0.7
+* Version: 1.1
 * Author: Elise Ferguson
 * Author URI: https://github.com/eliseferguson
 * License: GPL2
@@ -139,7 +139,7 @@ function wp_exist_media_by_title( $title ) {
 
 class alte_movie_Movie_Widget extends WP_Widget {
 
-    function alte_movie_movie_widget() {
+    function __construct() {
         // Instantiate the parent object
         parent::__construct( false, 'ALTE Movie Info Widget' );
     }

@@ -3,7 +3,7 @@
 	// echo $before_widget;
 
 	// echo $before_title . $title . $after_title;	
-
+	//egf this isn't working in this file for some reason
 ?>
 
 <div class="container-movie">
@@ -39,6 +39,7 @@
 				<a href="<?php echo $the_imdb_link; ?>" target="_blank">
 			<?php endif; ?> 
 			<?php
+				//egf we should let the user define the image size in the widget and shortcode?
 				if($which_movie == "1") {
 					echo wp_get_attachment_image($options['poster_attachment_id1'], array(214,317) );
 				}
