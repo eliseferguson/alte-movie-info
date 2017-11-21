@@ -2,8 +2,8 @@
 Contributors: Elise Ferguson
 Tags: movie, imdb, films
 Requires at least: 4.0.1
-Tested up to: 4.7.1
-Stable tag: 1.1
+Tested up to: 4.9
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,7 +33,7 @@ To install this plugin:
 = How to Use the Widget =
 
 1. Setup the Plugin (refer to above)
-2. Go to Appearance > Widgets and drag the 'ALTE Movie Info Widget' to your sidebar.  
+2. Go to Appearance > Widgets and drag the 'ALTE Movie Info Widget' to your sidebar.
 3. Enter in a Title to appear above the movie info.  For example "Now Playing".
 4. Check the box if you would like to have a short plot displayed along with the rest of the movie info.
 
@@ -41,8 +41,12 @@ To install this plugin:
 
 1. Navigate to the post or page you would like to add the badges to
 2. Enter in the shortcode [alte_movie_info]
-3. Customize whether the plot will appear along with the movie info by useing the parameter 'plot' with a value of 'yes' or 'no' [alte_movie_info plot='no'].  By default the plot has an 'yes' setting.
-
+3. Optional parameters:
+show plot: [alte_movie_info plot='yes']
+show poster: [alte_movie_info poster='yes']
+add link to poster: [alte_movie_info link='yes']
+link trailer: [alte_movie_info trailer='yes']
+which movie: [alte_movie_info which_movie='1']
 
 
 == Frequently Asked Questions ==
@@ -58,7 +62,6 @@ To install this plugin:
 
 Just give it a few seconds and it should load properly.  The movie information is being pulled from the JSON file and saved into the database.
 
-
 = How Often Does the Movie Information Get Updated? =
 
 Whenever someone visits a page, the plugin checks to see if the profile information was updated in the last 24 hours.  If it has been longer than 24 hours, then the plugin will update the movie information.  The next time someone visits the site or clicks on a page, the latest info show.
@@ -69,8 +72,7 @@ Unfortunately, not yet.  For future releases, we are considering more customized
 
 = What if I Want to Show Multiple Movies? =
 
-Right now this is not possible but we will be adding this functionality in future releases since theaters generally show more than one film at a time. (Right now the theater we coded this for only has one screen.)
-
+Currently you can show two movies.
 
 
 
@@ -79,6 +81,12 @@ Right now this is not possible but we will be adding this functionality in futur
 
 
 == Changelog ==
+
+= 1.2.0 =
+
+* Error handling for missing API key
+* Added API key
+* Separated into two widgets, one for each set movie
 
 = 1.1.0 =
 
@@ -96,7 +104,7 @@ Right now this is not possible but we will be adding this functionality in futur
 
 * Testing github updater scripts
 
-= 1.0.1 = 
+= 1.0.1 =
 
 * Added Updater file
 
