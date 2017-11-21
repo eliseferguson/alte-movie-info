@@ -155,7 +155,6 @@ function wp_exist_media_by_title( $title ) {
     }
 }
 
-
 class alte_movie_Movie1_Widget extends WP_Widget {
 
     function __construct() {
@@ -261,9 +260,7 @@ function alte_movie_movie_register_widgets() {
     register_widget( 'alte_movie_Movie1_Widget' );
     register_widget( 'alte_movie_Movie2_Widget' );
 }
-
 add_action( 'widgets_init', 'alte_movie_movie_register_widgets' );
-
 
 function alte_movie_info_shortcode($atts, $content = null) {
 
@@ -306,7 +303,6 @@ function alte_movie_info_shortcode($atts, $content = null) {
 }
 add_shortcode('alte_movie_info', 'alte_movie_info_shortcode');
 
-
 function alte_movie_info_get_info($alte_movie_code) {
     // http://www.omdbapi.com/?i=tt3896198&apikey=efcc53b7
 	$json_feed_url = 'http://www.omdbapi.com/?i=' . $alte_movie_code . '&apikey=efcc53b7&plot=short&r=json';
@@ -326,7 +322,6 @@ function alte_movie_info_get_info($alte_movie_code) {
     return $alte_movie_movie;
 
 }
-
 
 function alte_movie_info_styles() {
     //admin area css
@@ -350,6 +345,7 @@ function get_attachment_id_from_src ($image_src) {
   $id = $wpdb->get_var($query);
   return $id;
 }
+
 function upload_movie_image( $url, $post_id, $desc ) {
     // Upload an Image
     $image = media_sideload_image($url, $post_id, $desc);
@@ -365,6 +361,5 @@ function upload_movie_image( $url, $post_id, $desc ) {
     $attachment_id = get_attachment_id_from_src ($image);
     return $attachment_id;
 }
-
 
 ?>
