@@ -3,7 +3,7 @@
 * Plugin Name: ALTE IMDB Info
 * Plugin URI: https://github.com/eliseferguson/alte-movie-info
 * Description: A custom plugin to display movie information
-* Version: 1.2.2
+* Version: 1.2.3
 * Author: Elise Ferguson
 * Author URI: https://github.com/eliseferguson
 * License: GPL2
@@ -30,13 +30,16 @@ $display_json = false;
 
 // Add a link to the plugin in the admin menu under Settings
 function alte_movie_info_menu() {
-	add_options_page(
-		'ALTE Movie Info Plugin',
-		'Movie Info',
-		'manage_options',
-		'alte-movie-info',
-		'alte_movie_info_options_page'
-	);
+
+    $page_title = 'Movie Info Settings';
+    $menu_title = 'Movie Info';
+    $capability = 'manage_options';
+    $slug = 'alte-movie-info';
+    $callback = 'alte_movie_info_options_page';
+    $icon = 'dashicons-info';
+    $position = 6;
+
+    add_menu_page( $page_title, $menu_title, $capability, $slug, $callback, $icon, $position );
 }
 
 add_action('admin_menu', 'alte_movie_info_menu');
