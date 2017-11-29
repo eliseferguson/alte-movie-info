@@ -1,9 +1,9 @@
 === ALTE Movie Info Plugin ===
-Contributors: Elise Ferguson
+Contributors: egf
 Tags: movie, imdb, films
 Requires at least: 4.0.1
 Tested up to: 4.9
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,10 @@ Currently you can show two movies.
 
 == Changelog ==
 
+= 1.2.1 =
+
+* Updated undefined index issue
+
 = 1.2.0 =
 
 * Error handling for missing API key
@@ -117,28 +121,3 @@ Currently you can show two movies.
 * Initial launch of the plugin
 * Display movie info based on IMDB movie ID
 * Option to choose if plot is displayed
-
-== Upgrade Notice ==
-
-= 1.0.7 =
-
-* Movie poster is now displaying as a thumbnail - will update more in future
-
-= 1.0.6 =
-
-* Removed movie poster code that was breaking settings page
-
-= 1.0.3 =
-
-* Testing github updater scripts
-
-= 1.0.1 =
-
-Updater file added.
-
-= 1.0.0 =
-
-Deployed on Github
-
-= 0.9 =
-This is the first version of the plugin.  No updates available yet.

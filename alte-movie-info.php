@@ -3,7 +3,7 @@
 * Plugin Name: ALTE IMDB Info
 * Plugin URI: https://github.com/eliseferguson/alte-movie-info
 * Description: A custom plugin to display movie information
-* Version: 1.2
+* Version: 1.2.1
 * Author: Elise Ferguson
 * Author URI: https://github.com/eliseferguson
 * License: GPL2
@@ -42,6 +42,7 @@ function alte_movie_info_menu() {
 add_action('admin_menu', 'alte_movie_info_menu');
 
 function alte_movie_info_options_page() {
+    // called from the new options page set in alte_movie_info_menu
 	if(!current_user_can('manage_options')) {
 		wp_die('You do not have sufficient permissions to access this page.');
 	}
@@ -52,21 +53,15 @@ function alte_movie_info_options_page() {
     if(isset($_POST['alte_movie_code_form_submitted'])) {
     	$hidden_field = esc_html($_POST['alte_movie_code_form_submitted']);
     	if($hidden_field == 'Y') {
-    		//get the code that the user inputed
+    		//get the code that the user inputed in the text boxes
             $alte_movie_code1 = esc_html($_POST['alte_movie_code1']);
             $alte_movie_code2 = esc_html($_POST['alte_movie_code2']);
-
-            // $alte_movie_code1 = "tt2380307";
-            // $alte_movie_code2 = "tt0974015";
 
             //get the movie info based on the code
     		$alte_movie_movie1 = alte_movie_info_get_info($alte_movie_code1);
             $alte_movie_movie2 = alte_movie_info_get_info($alte_movie_code2);
 
-
-
-            //check if there is a value for Error
-
+            //check if there is a value for Error from the alte_movie_info_get_info function
             if( property_exists($alte_movie_movie1, 'Error') ) {
                 echo $alte_movie_movie1->{'Error'};
                 return;
@@ -160,6 +155,7 @@ class alte_movie_Movie1_Widget extends WP_Widget {
     function __construct() {
         // Instantiate the parent object
         parent::__construct( false, 'ALTE Movie 1 Info Widget' );
+
     }
 
     function widget( $args, $instance ) {
@@ -185,22 +181,23 @@ class alte_movie_Movie1_Widget extends WP_Widget {
     function update( $new_instance, $old_instance ) {
         // Save widget options
         $instance = $old_instance;
-        $instance['title'] = strip_tags($new_instance['title']);
-        $instance['show_plot'] = strip_tags($new_instance['show_plot']);
-        $instance['show_poster'] = strip_tags($new_instance['show_poster']);
-        $instance['link_imdb'] = strip_tags($new_instance['link_imdb']);
-        $instance['link_trailer'] = strip_tags($new_instance['link_trailer']);
+        $instance['title'] = strip_tags(isset($new_instance['title']) ? esc_attr($new_instance['title']) : '');
+        $instance['show_plot'] = strip_tags(isset($new_instance['show_plot']) ? esc_attr($new_instance['show_plot']) : '');
+        $instance['show_poster'] = strip_tags(isset($new_instance['show_poster']) ? esc_attr($new_instance['show_poster']) : '');
+        $instance['link_imdb'] = strip_tags(isset($new_instance['link_imdb']) ? esc_attr($new_instance['link_imdb']) : '');
+        $instance['link_trailer'] = strip_tags(isset($new_instance['link_trailer']) ? esc_attr($new_instance['link_trailer']) : '');
 
         return $instance;
     }
 
     function form( $instance ) {
         // Output admin widget options form
-        $title = esc_attr($instance['title']);
-        $show_plot = esc_attr($instance['show_plot']);
-        $show_poster = esc_attr($instance['show_poster']);
-        $link_imdb = esc_attr($instance['link_imdb']);
-        $link_trailer = esc_attr($instance['link_trailer']);
+
+        $title = isset($instance['title']) ? esc_attr($instance['title']) : '';
+        $show_plot = isset($instance['show_plot']) ? esc_attr($instance['show_plot']) : '';
+        $show_poster = isset($instance['show_poster']) ? esc_attr($instance['show_poster']) : '';
+        $link_imdb = isset($instance['link_imdb']) ? esc_attr($instance['link_imdb']) : '';
+        $link_trailer = isset($instance['link_trailer']) ? esc_attr($instance['link_trailer']) : '';
         require('inc/widget-fields.php');
     }
 }
@@ -235,23 +232,23 @@ class alte_movie_Movie2_Widget extends WP_Widget {
     function update( $new_instance, $old_instance ) {
         // Save widget options
         $instance = $old_instance;
-        $instance['title'] = strip_tags($new_instance['title']);
-        $instance['show_plot'] = strip_tags($new_instance['show_plot']);
-        $instance['show_poster'] = strip_tags($new_instance['show_poster']);
-        $instance['link_imdb'] = strip_tags($new_instance['link_imdb']);
-        $instance['link_trailer'] = strip_tags($new_instance['link_trailer']);
+        $instance['title'] = strip_tags(isset($new_instance['title']) ? esc_attr($new_instance['title']) : '');
+        $instance['show_plot'] = strip_tags(isset($new_instance['show_plot']) ? esc_attr($new_instance['show_plot']) : '');
+        $instance['show_poster'] = strip_tags(isset($new_instance['show_poster']) ? esc_attr($new_instance['show_poster']) : '');
+        $instance['link_imdb'] = strip_tags(isset($new_instance['link_imdb']) ? esc_attr($new_instance['link_imdb']) : '');
+        $instance['link_trailer'] = strip_tags(isset($new_instance['link_trailer']) ? esc_attr($new_instance['link_trailer']) : '');
+
 
         return $instance;
     }
 
     function form( $instance ) {
         // Output admin widget options form
-
-        $title = esc_attr($instance['title']);
-        $show_plot = esc_attr($instance['show_plot']);
-        $show_poster = esc_attr($instance['show_poster']);
-        $link_imdb = esc_attr($instance['link_imdb']);
-        $link_trailer = esc_attr($instance['link_trailer']);
+        $title = isset($instance['title']) ? esc_attr($instance['title']) : '';
+        $show_plot = isset($instance['show_plot']) ? esc_attr($instance['show_plot']) : '';
+        $show_poster = isset($instance['show_poster']) ? esc_attr($instance['show_poster']) : '';
+        $link_imdb = isset($instance['link_imdb']) ? esc_attr($instance['link_imdb']) : '';
+        $link_trailer = isset($instance['link_trailer']) ? esc_attr($instance['link_trailer']) : '';
         require('inc/widget-fields.php');
     }
 }
@@ -304,6 +301,7 @@ function alte_movie_info_shortcode($atts, $content = null) {
 add_shortcode('alte_movie_info', 'alte_movie_info_shortcode');
 
 function alte_movie_info_get_info($alte_movie_code) {
+    // use the omdbi api to fetch the movie information based on the imdb code entered in the textbox
     // http://www.omdbapi.com/?i=tt3896198&apikey=efcc53b7
 	$json_feed_url = 'http://www.omdbapi.com/?i=' . $alte_movie_code . '&apikey=efcc53b7&plot=short&r=json';
 	$args = array('timeout' => 120);
@@ -318,7 +316,7 @@ function alte_movie_info_get_info($alte_movie_code) {
             echo $alte_movie_movie;
         }
     }
-
+    // return the movie information from the api
     return $alte_movie_movie;
 
 }
