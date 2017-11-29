@@ -25,6 +25,15 @@ To install this plugin:
 2. Upload the 'alte-movie-info' folder into the '/wp-content/plugins/' directory
 3. Go to the Plugins admin page and activate the plugin
 
+= Use GitHub Updater =
+
+1. Install github updater: https://github.com/afragen/github-updater
+2. In Settings > Github Updater, click the Install Plugin tab
+3. Use plugin URI: https://github.com/eliseferguson/alte-movie-info
+4. Click Install Plugin button
+5. Github updater will notify you of future plugin updates
+6. Activate ALTE Movie Showtimes plugin from the plugin page
+
 = To Setup The Plugin =
 
 1. Find the IMDB Movie ID.
