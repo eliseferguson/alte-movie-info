@@ -35,7 +35,7 @@
 			<?php
 				//TODO we should let the user define the image size in the widget and shortcode?
 
-				echo wp_get_attachment_image($options['poster_attachment_id' . $which_movie], array(214,317) );
+				echo wp_get_attachment_image($options['poster_attachment_id' . $which_movie], array(340,504) );
 
 			?>
 			<?php if($link_imdb == "1"): ?>
