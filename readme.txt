@@ -3,7 +3,7 @@ Contributors: egf
 Tags: movie, imdb, films
 Requires at least: 4.0.1
 Tested up to: 4.9
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,10 @@ Currently you can show two movies.
 
 
 == Changelog ==
+
+= 1.2.4 =
+
+* Removing old updater stuff
 
 = 1.2.3 =
 

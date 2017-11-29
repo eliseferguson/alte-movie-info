@@ -3,23 +3,23 @@
 * Plugin Name: ALTE IMDB Info
 * Plugin URI: https://github.com/eliseferguson/alte-movie-info
 * Description: A custom plugin to display movie information
-* Version: 1.2.3
+* Version: 1.2.4
 * Author: Elise Ferguson
 * Author URI: https://github.com/eliseferguson
 * License: GPL2
 **/
 
 // Updater stuff
-if( ! class_exists( 'Alte_Updater' ) ){
-    include_once( plugin_dir_path( __FILE__ ) . 'updater.php' );
-}
-$updater = new Alte_Updater( __FILE__ );
-$updater->set_username( 'eliseferguson' );
-$updater->set_repository( 'alte-movie-info' );
+// if( ! class_exists( 'Alte_Updater' ) ){
+//     include_once( plugin_dir_path( __FILE__ ) . 'updater.php' );
+// }
+// $updater = new Alte_Updater( __FILE__ );
+// $updater->set_username( 'eliseferguson' );
+// $updater->set_repository( 'alte-movie-info' );
 /*
     $updater->authorize( 'abcdefghijk1234567890' ); // Your auth code goes here for private repos
 */
-$updater->initialize();
+// $updater->initialize();
 
 // Asssign global variables
 
